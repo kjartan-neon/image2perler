@@ -1,6 +1,7 @@
 import json
 import os
-from PIL import Image
+import numpy as np
+from PIL import Image, ImageEnhance
 
 # Load the JSON data from the pokedex.json file
 with open('pokedex.json', 'r') as f:
@@ -37,6 +38,16 @@ def resize_image_if_needed(img, max_width=60, max_height=60):
         img = img.resize((new_width, new_height), Image.Resampling.NEAREST)
     return img
 
+# Find right color for bead by checking closest color from list 
+def closest_bead(checkedcolor):
+    colors = [[195,137,84],[111,154,82],[96,114,145],[127,147,186],[82,82,82],[250,120,135],[245,192,169],[255,183,216],[10,10,10],[232,232,232],[217,0,9],[256,256,256],[160,223,139],[136,59,14],[137,133,138],[238,101,208],[10,50,183],[234,77,4],[171,131,233],[65,32,134],[105,214,222],[113,187,236],[250,223,34],[227,192,144],[0,110,30]]
+    colors = np.array(colors)
+    checkedcolor = np.array(checkedcolor)
+    distances = np.sqrt(np.sum((colors-checkedcolor)**2,axis=1))
+    index_of_smallest = np.where(distances==np.amin(distances))
+    smallest_distance = colors[index_of_smallest]
+    return smallest_distance 
+
 
 def images_to_html_tables(folder_path, output_folder):
     # Create the output folder if it doesn't exist
@@ -59,15 +70,18 @@ def images_to_html_tables(folder_path, output_folder):
                 img = img.convert('RGBA')
             else:    
                 print("Image not converted from P mode.")
-                print(filename)
+            print(filename)
             
             # Crop the image to remove blank or white pixels
             img = crop_image(img)
             
+            # Increase contrast. Might give better results on some photo like images
+            enhancer = ImageEnhance.Contrast(img)
+            img = enhancer.enhance(1.2)
             
-            
-            # Reduce the number of colors to a maximum of 12
-            img = img.quantize(colors=12, method=2).convert('RGBA')
+            # Reduce the number of colors to a maximum 
+            # Replaced by bead palette
+            #img = img.quantize(colors=12, method=2).convert('RGBA')
 
             # Resize the image if needed
             img = resize_image_if_needed(img)
@@ -75,7 +89,7 @@ def images_to_html_tables(folder_path, output_folder):
             width, height = img.size
             pixels = img.load()
             
-            # If Image is more than 30 beads, write printing instructions "(stor)" - large in Norwegian
+            # If Image is more than 30 beads, write printing instructions large
             if width > 52: 
                 link_description = "  - XXL"
                 title_description = " (Will not fit A4 horizontal)"
@@ -127,9 +141,16 @@ def images_to_html_tables(folder_path, output_folder):
                         a = 255  # Default alpha value for RGB images
                     else:
                         raise ValueError(f"Unsupported image mode: {img.mode}")
-                    #color = f"#{r:02x}{g:02x}{b:02x}"
+                    
+                    # Find closest bead color
+                    closest_color = closest_bead([r,g,b])
+                    r = closest_color[0][0]
+                    g = closest_color[0][1]
+                    b = closest_color[0][2]
                     color = f"rgba({r},{g},{b},{a})"
-                    used_colors.add(color)
+                                          
+                    rgbcolor = color = f"rgb({r},{g},{b})"
+                    used_colors.add(rgbcolor)
                     html_content += f"<td><div class='perle' style='background-color: {color};'></div></td>"
                 html_content += "</tr>"
             
