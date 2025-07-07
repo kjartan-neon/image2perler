@@ -77,14 +77,14 @@ def images_to_html_tables(folder_path, output_folder):
             
             # If Image is more than 30 beads, write printing instructions "(stor)" - large in Norwegian
             if width > 52: 
-                link_description = "  - Large / stor"
+                link_description = "  - XXL"
                 title_description = " (Will not fit A4 horizontal)"
             elif width > 36:
-                link_description = " - Large / stor"
+                link_description = " - Large"
                 title_description = " (Print A4 horizontal)"
             elif width > 31 or height > 31:
-                link_description = " - Large"
-                title_description = " - Large"
+                link_description = " - Medium"
+                title_description = " - Medium"
             else:
                 link_description = ""
                 title_description = ""
