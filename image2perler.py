@@ -106,7 +106,7 @@ def images_to_html_tables(folder_path, output_folder):
                 index_html_content += f"<li><a href='{html_filename}'>{file_id}{link_description}</a></li>"
                 html_content = f"<html>{style_css}<body style='font-family: sans-serif'><h2>{filename}{title_description}</h2>"
             
-            html_content += "<table style='border: 0.5mm solid black; border-collapse: collapse;'>"
+            html_content += "<table style='border: 1px solid black; border-collapse: collapse;'>"
             
             # Add the top row with numbers
             html_content += "<tr><td><div class='perle-number'>!</div></td>"  # Empty top-left cell
