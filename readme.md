@@ -1,6 +1,8 @@
-I python script that takes .png files in the input-images folder and creates a table with a colored cell for each pixel. 
+Python script that takes .png files in the input-images folder and creates a table with a colored cell for each pixel. 
 
-Used to make instructions / maps for kids perler / plastic iron beads
+Used to make instructions / maps for kids perler / plastic iron beads.
+
+I made it to make patterns for Pokémon sprites, for use by my son during rainy days at summer holiday.
 
 License of this script <a href='https://creativecommons.org/licenses/by-nc/4.0/'>Attribution-NonCommercial 4.0</a>
 
