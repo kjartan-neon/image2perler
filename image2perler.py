@@ -3,12 +3,19 @@ import os
 import numpy as np
 from PIL import Image, ImageEnhance
 
-# Load the JSON data from the pokedex.json file
-with open('pokedex.json', 'r') as f:
-    pokedex = json.load(f)
+# Set to 0 if you dont want to use the pokedex lookup
+# Get latest pokedex.json from https://github.com/Purukitto/pokemon-data.json
+pokemonlookup = 1
 
-# Create a dictionary to map Pokemon IDs to their English names
-pokemon_names = {str(pokemon['id']).zfill(3): pokemon['name']['english'] for pokemon in pokedex}
+if pokemonlookup == 1:
+    # Load the JSON data from the pokedex.json file
+    with open('pokedex.json', 'r') as f:
+        pokedex = json.load(f)
+
+    # Create a dictionary to map Pokemon IDs to their English names
+    pokemon_names = {str(pokemon['id']).zfill(3): pokemon['name']['english'] for pokemon in pokedex}
+else:
+    pokemon_names = ["No Pokemon"]
 
 def crop_image(img):
     # Convert image to RGBA if not already
@@ -148,7 +155,7 @@ def images_to_html_tables(folder_path, output_folder):
                     g = closest_color[0][1]
                     b = closest_color[0][2]
                     color = f"rgba({r},{g},{b},{a})"
-                                          
+
                     rgbcolor = color = f"rgb({r},{g},{b})"
                     used_colors.add(rgbcolor)
                     html_content += f"<td><div class='perle' style='background-color: {color};'></div></td>"
