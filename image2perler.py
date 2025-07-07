@@ -43,7 +43,7 @@ def images_to_html_tables(folder_path, output_folder):
     os.makedirs(output_folder, exist_ok=True)
     
     # Initialize the index HTML content
-    index_html_content = "<html><head><meta charset='UTF-8'></head><body style='font-family: sans-serif'><h1>Pokémon Perlemønster / Pokémon Beads Patterns</h1><p>Kan brukes med alle rørperler fra Hama eller andre merker</p><ul>"
+    index_html_content = "<html><head><meta charset='UTF-8'></head><body style='font-family: sans-serif'><h1>Pokémon Beads Patterns / Pokémon Perlemønster</h1><p>Can be used with HAMA perler beads or iron beads of all brands / Kan brukes med alle rørperler fra Hama eller andre merker</p><ul>"
     
     # Get the list of files in alphabetical order
     files = sorted(os.listdir(folder_path))
