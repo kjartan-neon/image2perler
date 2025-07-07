@@ -90,7 +90,7 @@ def images_to_html_tables(folder_path, output_folder):
                 title_description = ""
 
             # Style css for printing
-            style_css = '<head> <style>.perle-number{font-size: 8px; text-align: center;}tr td {padding: 0;} tr td div{ height: 4.5mm; width: 4.5mm; border: 0.1mm solid #000000;} page[size="A4"] { width: 21cm; height: 29.7cm; display: block; margin: 0 auto; margin-bottom: 0.5cm; box-shadow: 0 0 0.5cm rgba(0,0,0,0.5); } @media print { body, page[size="A4"] { margin: 0; box-shadow: 0; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; } } </style> </head>'
+            style_css = '<head> <style>.perle-number{font-size: 8px; text-align: center;}tr td {padding: 0;} tr td div{ height: 4.5mm; width: 4.5mm; border: 1px solid #000000;} page[size="A4"] { width: 21cm; height: 29.7cm; display: block; margin: 0 auto; margin-bottom: 0.5cm; box-shadow: 0 0 0.5cm rgba(0,0,0,0.5); } @media print { body, page[size="A4"] { margin: 0; box-shadow: 0; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; } } </style> </head>'
 
             # Extract the file ID from the filename
             file_id = os.path.splitext(filename)[0]
