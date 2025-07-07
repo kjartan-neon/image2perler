@@ -155,11 +155,11 @@ def images_to_html_tables(folder_path, output_folder):
                 file.write(html_content)
     
     # End the index HTML file
-    index_html_content += "</ul></body></html>"
+    index_html_content += "</ul><p>Made with <a href='https://github.com/kjartan-neon/image2perler'>image2perler</a></p></body></html>"
     
     # Write the index HTML content to the output file
     with open(os.path.join(output_folder, "index.html"), "w") as file:
         file.write(index_html_content)
 
 # Example usage
-images_to_html_tables("input-images/", "output/")
+images_to_html_tables("input-images/", "docs/")
