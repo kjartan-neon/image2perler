@@ -62,7 +62,8 @@ def images_to_html_tables(folder_path, output_folder):
     
     # Initialize the index HTML content
     index_html_content = "<html><head><meta charset='UTF-8'></head><body style='font-family: sans-serif'><h1>Pokémon Beads Patterns / Pokémon Perlemønster</h1><p>Can be used with HAMA perler beads or iron beads of all brands / Kan brukes med alle rørperler fra Hama eller andre merker</p><ul>"
-    
+    back_link = "<a style='' href='index.html'>Home</a>"
+
     # Get the list of files in alphabetical order
     files = sorted(os.listdir(folder_path))
     
@@ -113,6 +114,8 @@ def images_to_html_tables(folder_path, output_folder):
             # Style css for printing
             style_css = '<head> <style>.perle-number{font-size: 8px; text-align: center;}tr td {padding: 0;} tr td div{ height: 4.5mm; width: 4.5mm; border-right: 1px solid #000000; border-bottom: 1px solid #000000;} page[size="A4"] { width: 21cm; height: 29.7cm; display: block; margin: 0 auto; margin-bottom: 0.5cm; box-shadow: 0 0 0.5cm rgba(0,0,0,0.5); } @media print { body, page[size="A4"] { margin: 0; box-shadow: 0; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; } } </style> </head>'
 
+            # Save link for back navigation
+            previous_link = back_link
             # Extract the file ID from the filename
             file_id = os.path.splitext(filename)[0]
             # Check if the file ID is in the correct format and exists in the Pokemon names dictionary
@@ -120,13 +123,17 @@ def images_to_html_tables(folder_path, output_folder):
                 # Get the Pokemon name
                 pokemon_name = pokemon_names[file_id]
                 html_filename = f"{file_id}.html"
-                index_html_content += f"<li><a href='{html_filename}'>{pokemon_name}{link_description}</a></li>"
+                back_link = f"<a href='{html_filename}'>{pokemon_name}{link_description}</a>"
+                index_html_content += f"<li>{back_link}</li>"
                 html_content = f"<html>{style_css}<body style='font-family: sans-serif'><h2>{pokemon_name}{title_description}</h2>"
+                
             else:
                 html_filename = f"{filename}.html"
-                index_html_content += f"<li><a href='{html_filename}'>{file_id}{link_description}</a></li>"
+                back_link = f"<a href='{html_filename}'>{file_id}{link_description}</a>"
+                index_html_content += f"<li>{back_link}</li>"
                 html_content = f"<html>{style_css}<body style='font-family: sans-serif'><h2>{filename}{title_description}</h2>"
             
+            html_content += f"<h4>&#8678; {previous_link}</h4>"
             html_content += "<table style='border: none; border-collapse: collapse;'>"
             
             # Add the top row with numbers
@@ -156,7 +163,7 @@ def images_to_html_tables(folder_path, output_folder):
                     b = closest_color[0][2]
                     color = f"rgba({r},{g},{b},{a})"
 
-                    rgbcolor = color = f"rgb({r},{g},{b})"
+                    rgbcolor = f"rgb({r},{g},{b})"
                     used_colors.add(rgbcolor)
                     html_content += f"<td><div class='perle' style='background-color: {color};'></div></td>"
                 html_content += "</tr>"
@@ -169,10 +176,10 @@ def images_to_html_tables(folder_path, output_folder):
             for color in sorted(used_colors):
                 html_content += f"<td style='width: 32px; height: 32px; background-color: {color}; border: 1px solid black;'></td>"
             html_content += "</tr></table>"
-            
+            html_content += f"<h4>&#8678; {previous_link}</h4>"
 
             # Change to your attributon for output generated
-            html_content += "<h6>Made with love in Oslo Norway, oslopokemon.com - </h6><h6>Licence <a href='https://creativecommons.org/licenses/by-nc/4.0/'>Attribution-NonCommercial 4.0</a></h6>"
+            html_content += "<h6>Made with love in Oslo Norway, <a href='https://d7.no'>d7.no</a></h6><h6>Licence <a href='https://creativecommons.org/licenses/by-nc/4.0/'>Attribution-NonCommercial 4.0</a></h6>"
             html_content += '<a href="https://www.freecounterstat.com" title="free hit counters"><img src="https://counter4.optistats.ovh/private/freecounterstat.php?c=86zpjj8lhp8cdp7r6gnrpl1mkjzfh4t9" border="0" title="free hit counters" alt="free hit counters"></a>'
 
 
